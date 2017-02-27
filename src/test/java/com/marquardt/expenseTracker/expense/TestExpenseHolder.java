@@ -1,5 +1,6 @@
 package com.marquardt.expenseTracker.expense;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -152,6 +153,23 @@ public class TestExpenseHolder {
 			System.out.println(match.showExpenseDate());
 		}
 		Assert.assertEquals(3, expenseListMatch.size());
+	}
+	
+	@Test
+	public void testPersistFiveExpenses(){
+		this.expenseHolder.insertNewExpense(250);
+		this.expenseHolder.insertNewExpense(450);
+		this.expenseHolder.insertNewExpense(50);
+		this.expenseHolder.insertNewExpense(100, "13-01-2016");
+		this.expenseHolder.insertNewExpense(-80, "15-04-2005");
+		
+		try {
+			this.expenseHolder.persistAllExpenses();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

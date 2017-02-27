@@ -1,6 +1,9 @@
 package com.marquardt.expenseTracker.expense;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAmount;
@@ -93,9 +96,23 @@ public class ExpenseHolder {
 	
 	/**
 	 * Stores all Expenses in a csv file for persistence
+	 * @throws IOException 
 	 */
-	public void persistAllExpenses(){
+	public void persistAllExpenses() throws IOException{
 		File storageFile = new File("misc/storedExpences.csv");
+		BufferedWriter writer = new BufferedWriter(new FileWriter(storageFile));
+		
+		//write out the whole list
+		for(Expense expense : expenseList){
+			try {
+				writer.write(expense.expenseToFile());
+				writer.newLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		writer.close();
 		
 	}
 	

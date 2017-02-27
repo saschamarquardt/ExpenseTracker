@@ -7,11 +7,12 @@ import java.time.format.DateTimeFormatter;
 public class Expense {
 
 	private BigDecimal value;
+	private String titel = "";
 	private LocalDate expenseDate;
-	private String description;
+	private String description = "";
+	private String category = "";
 
 	public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	
 	
 	
 	Expense(double amount) {
@@ -40,7 +41,16 @@ public class Expense {
 		
 		return currentDate;
 	}
+	
+	
+	public String expenseToFile(){
 		
+		String expenseString;
+		
+		expenseString = this.titel + "," + this.value + "," + showExpenseDate() + "," + this.description + "," + this.category;
+		
+		return expenseString;
+	}
 	
 	/**
 	 * @return the value
@@ -81,6 +91,27 @@ public class Expense {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public String getTitel() {
+		return titel;
+	}
+
+
+	public void setTitel(String titel) {
+		this.titel = titel;
+	}
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
 
 
 }
