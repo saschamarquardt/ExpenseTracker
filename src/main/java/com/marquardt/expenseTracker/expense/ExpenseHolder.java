@@ -1,7 +1,10 @@
 package com.marquardt.expenseTracker.expense;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,6 +29,10 @@ public class ExpenseHolder {
 	public boolean insertNewExpense(double amount, String date) {
 		return this.expenseList.add(new Expense(amount, date));
 
+	}
+	
+	public boolean insertNewExpense(String titel, double value, String expenseDate, String description, String category){
+		return this.expenseList.add(new Expense(titel, value, expenseDate, description, category));
 	}
 
 	public BigDecimal calculateSum() {
@@ -121,12 +128,28 @@ public class ExpenseHolder {
 	 * Load the stored expenses from the given input file
 	 * @param inputFile The path to the storage file
 	 */
-	public List<Expense> loadExpensesFromFile(String inputFile){
+	public boolean loadExpensesFromFile(String inputFile){
 		
-		List<Expense> retrievedExpenses = new ArrayList<>();
 		File input = new File(inputFile);
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(input));
+			try {
+				while(reader.ready()){
+					String[] nextExpense = reader.readLine().split(",", -1);
+					expenseList.add(new Expense(nextExpense[0], Double.parseDouble(nextExpense[1]), nextExpense[2], nextExpense[3], nextExpense[4]));
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return retrievedExpenses;
+		
+		
+		return true;
 	}
 
 }

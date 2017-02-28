@@ -27,6 +27,15 @@ public class Expense {
 		this.value = new BigDecimal(amount);
 		this.expenseDate = LocalDate.parse(expenseDate, this.formatter);
 	}
+	
+	Expense(String titel, double amount, String expenseDate, String description, String category){
+		this.titel = titel;
+		this.value = new BigDecimal(amount);
+		this.expenseDate = LocalDate.parse(expenseDate, this.formatter);
+		this.description = description;
+		this.category = category;
+		
+	}
 
 
 	public String showExpenseDate(){
@@ -109,6 +118,13 @@ public class Expense {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Expense [value=" + value + ", titel=" + titel + ", expenseDate=" + expenseDate + ", description="
+				+ description + ", category=" + category + "]";
 	}
 
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.marquardt.expenseTracker.expense.Expense;
@@ -170,6 +171,18 @@ public class TestExpenseHolder {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Test
+	public void testRetrieveExpensesFromFile(){
+		
+		String inputFile = "misc/storedExpences.csv";
+		
+		this.expenseHolder.loadExpensesFromFile(inputFile);
+		
+		for(Expense expense : this.expenseHolder.getExpenseByDate()){
+			System.out.println(expense.toString());
+		}
 	}
 
 }
