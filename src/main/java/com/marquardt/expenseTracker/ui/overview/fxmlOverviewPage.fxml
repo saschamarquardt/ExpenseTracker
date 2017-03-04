@@ -5,6 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextInputControl?>
+<?import javafx.scene.control.Label?>
 
 
 <GridPane fx:controller="com.marquardt.expenseTracker.ui.Controller.fxmlApplicationController" 
@@ -12,13 +15,23 @@
 <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 
 <!-- input fields for new expenses -->
+<Text text = "Enter new Expense" GridPane.columnIndex = "0" GridPane.rowIndex = "0" GridPane.columnSpan = "2"/>
+<Label text = "Name the expense: " GridPane.columnIndex = "0" GridPane.rowIndex = "1"/>
+<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "1" promptText="expense name"/>
 
+<Label text = "Amount: " GridPane.columnIndex = "0" GridPane.rowIndex = "2"/>
+<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "2" promptText="amount in €"/>
 
-<Text text = "Select expense filter" GridPane.columnIndex = "0" GridPane.rowIndex = "0" GridPane.columnSpan = "2"/>
-<TextField GridPane.columnIndex = "0" GridPane.rowIndex = "1" promptText="dd-MM-yyyy"/>
-<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "1" promptText="dd-MM-yyyy"/>
+<Label text = "Creation: " GridPane.columnIndex = "0" GridPane.rowIndex = "3"/>
+<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "3" promptText="dd-MM-yyyy"/>
 
+<Button text = "add" GridPane.columnIndex = "1" GridPane.rowIndex = "4"/> 
 
+<Text text = "Select expense filter" GridPane.columnIndex = "0" GridPane.rowIndex = "5" GridPane.columnSpan = "2"/>
+<TextField GridPane.columnIndex = "0" GridPane.rowIndex = "6" promptText="dd-MM-yyyy"/>
+<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "6" promptText="dd-MM-yyyy"/>
+
+<Button text = "show" GridPane.columnIndex = "1" GridPane.rowIndex = "7"/> 
 <!-- display section for result set -->
 
 
