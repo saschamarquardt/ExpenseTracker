@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<GridPane fx:controller="com.marquardt.expenseTracker.ui.Controller.fxmlApplicationController" 
+    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+
+<!-- input fields for new expenses -->
+
+
+<Text text = "Select expense filter" GridPane.columnIndex = "0" GridPane.rowIndex = "0" GridPane.columnSpan = "2"/>
+<TextField GridPane.columnIndex = "0" GridPane.rowIndex = "1" promptText="dd-MM-yyyy"/>
+<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "1" promptText="dd-MM-yyyy"/>
+
+
+<!-- display section for result set -->
+
+
+</GridPane>

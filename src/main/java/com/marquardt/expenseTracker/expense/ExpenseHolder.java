@@ -67,7 +67,7 @@ public class ExpenseHolder {
 		
 		List<Expense> partialExpenceList = new ArrayList();
 		
-		LocalDate searchDate = LocalDate.parse(date);
+		LocalDate searchDate = LocalDate.parse(date, Expense.formatter);
 		
 		for(int i = 0; i < this.expenseList.size(); i++){
 			if (this.expenseList.get(i).getExpenseDate().isEqual(searchDate)) {
