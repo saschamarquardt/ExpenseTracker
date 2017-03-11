@@ -20,18 +20,21 @@ public class ExpenseHolder {
 	public ExpenseHolder() {
 		this.expenseList = new ArrayList<>();
 	}
-
+	
+	
+	@Deprecated
 	public boolean insertNewExpense(double amount) {
 		return this.expenseList.add(new Expense(amount));
 
 	}
 
+	@Deprecated
 	public boolean insertNewExpense(double amount, String date) {
 		return this.expenseList.add(new Expense(amount, date));
 
 	}
 	
-	public boolean insertNewExpense(String titel, double value, String expenseDate, String description, String category){
+	public boolean insertNewExpense(String titel, String value, String expenseDate, String description, String category){
 		return this.expenseList.add(new Expense(titel, value, expenseDate, description, category));
 	}
 
@@ -111,8 +114,10 @@ public class ExpenseHolder {
 		
 		//write out the whole list
 		for(Expense expense : expenseList){
+			System.out.println(expense.expenseToFile());
 			try {
 				writer.write(expense.expenseToFile());
+				System.out.println(expense.expenseToFile());
 				writer.newLine();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -136,7 +141,7 @@ public class ExpenseHolder {
 			try {
 				while(reader.ready()){
 					String[] nextExpense = reader.readLine().split(",", -1);
-					expenseList.add(new Expense(nextExpense[0], Double.parseDouble(nextExpense[1]), nextExpense[2], nextExpense[3], nextExpense[4]));
+					expenseList.add(new Expense(nextExpense[0], nextExpense[1], nextExpense[2], nextExpense[3], nextExpense[4]));
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

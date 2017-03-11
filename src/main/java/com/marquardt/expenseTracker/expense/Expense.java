@@ -7,31 +7,45 @@ import java.time.format.DateTimeFormatter;
 public class Expense {
 
 	private BigDecimal value;
-	private String titel = "";
+	private String title;
 	private LocalDate expenseDate;
 	private String description = "";
 	private String category = "";
 
 	public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	
-	
+	@Deprecated
 	Expense(double amount) {
 		this.value = new BigDecimal(amount);
 		//set Date automatically if not specified by user
 		this.expenseDate = LocalDate.now();
 	}
 
-	
+	@Deprecated
 	Expense(double amount, String expenseDate) {
 		// TODO Auto-generated constructor sub
 		this.value = new BigDecimal(amount);
 		this.expenseDate = LocalDate.parse(expenseDate, this.formatter);
+		//set also the name of the expense automatically
+		this.title = "undefined";
 	}
 	
-	Expense(String titel, double amount, String expenseDate, String description, String category){
-		this.titel = titel;
+	@Deprecated
+	Expense(String title, double amount, String expenseDate){
+		this.title = title;
 		this.value = new BigDecimal(amount);
 		this.expenseDate = LocalDate.parse(expenseDate, this.formatter);
+
+	}
+	
+	Expense(String title, String amount, String expenseDate, String description, String category){
+		this.title = title;
+		this.value = new BigDecimal(amount);
+		if(expenseDate.length() != 0){
+			this.expenseDate = LocalDate.parse(expenseDate, this.formatter);
+		}else{
+			this.expenseDate = LocalDate.now();
+		}
 		this.description = description;
 		this.category = category;
 		
@@ -56,7 +70,7 @@ public class Expense {
 		
 		String expenseString;
 		
-		expenseString = this.titel + "," + this.value + "," + showExpenseDate() + "," + this.description + "," + this.category;
+		expenseString = this.title + "," + this.value + "," + showExpenseDate() + "," + this.description + "," + this.category;
 		
 		return expenseString;
 	}
@@ -102,12 +116,12 @@ public class Expense {
 	}
 	
 	public String getTitel() {
-		return titel;
+		return title;
 	}
 
 
 	public void setTitel(String titel) {
-		this.titel = titel;
+		this.title = titel;
 	}
 
 
@@ -123,7 +137,7 @@ public class Expense {
 
 	@Override
 	public String toString() {
-		return "Expense [value=" + value + ", titel=" + titel + ", expenseDate=" + expenseDate + ", description="
+		return "Expense [value=" + value + ", titel=" + title + ", expenseDate=" + expenseDate + ", description="
 				+ description + ", category=" + category + "]";
 	}
 

@@ -16,22 +16,27 @@
 
 <!-- input fields for new expenses -->
 <Text text = "Enter new Expense" GridPane.columnIndex = "0" GridPane.rowIndex = "0" GridPane.columnSpan = "2"/>
+
 <Label text = "Name the expense: " GridPane.columnIndex = "0" GridPane.rowIndex = "1"/>
-<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "1" promptText="expense name"/>
+<TextField fx:id = "expenseName" GridPane.columnIndex = "1" GridPane.rowIndex = "1" promptText="expense name"/>
 
 <Label text = "Amount: " GridPane.columnIndex = "0" GridPane.rowIndex = "2"/>
-<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "2" promptText="amount in €"/>
+<TextField fx:id ="expenseAmount" GridPane.columnIndex = "1" GridPane.rowIndex = "2" promptText="amount in €"/>
 
 <Label text = "Creation: " GridPane.columnIndex = "0" GridPane.rowIndex = "3"/>
-<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "3" promptText="dd-MM-yyyy"/>
+<TextField fx:id="expenseDate" GridPane.columnIndex = "1" GridPane.rowIndex = "3" promptText="dd-MM-yyyy"/>
 
-<Button text = "add" GridPane.columnIndex = "1" GridPane.rowIndex = "4"/> 
+<Button text = "add" GridPane.columnIndex = "1" GridPane.rowIndex = "4" onMouseClicked="#addNewExpenseToList"/>
 
-<Text text = "Select expense filter" GridPane.columnIndex = "0" GridPane.rowIndex = "5" GridPane.columnSpan = "2"/>
-<TextField GridPane.columnIndex = "0" GridPane.rowIndex = "6" promptText="dd-MM-yyyy"/>
-<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "6" promptText="dd-MM-yyyy"/>
+<Text fx:id="addingExpenseOutput"
+       GridPane.columnIndex="1" GridPane.rowIndex="5"/> 
 
-<Button text = "show" GridPane.columnIndex = "1" GridPane.rowIndex = "7"/> 
+<!-- filter region -->
+<Text text = "Select expense filter" GridPane.columnIndex = "0" GridPane.rowIndex = "6" GridPane.columnSpan = "2"/>
+<TextField GridPane.columnIndex = "0" GridPane.rowIndex = "7" promptText="dd-MM-yyyy"/>
+<TextField GridPane.columnIndex = "1" GridPane.rowIndex = "7" promptText="dd-MM-yyyy"/>
+
+<Button text = "show" GridPane.columnIndex = "1" GridPane.rowIndex = "8"/> 
 <!-- display section for result set -->
 
 
