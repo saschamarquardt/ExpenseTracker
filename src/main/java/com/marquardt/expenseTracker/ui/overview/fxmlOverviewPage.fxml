@@ -36,7 +36,7 @@
 <TextField GridPane.columnIndex = "0" GridPane.rowIndex = "7" promptText="dd-MM-yyyy"/>
 <TextField GridPane.columnIndex = "1" GridPane.rowIndex = "7" promptText="dd-MM-yyyy"/>
 
-<Button text = "show" GridPane.columnIndex = "1" GridPane.rowIndex = "8"/> 
+<Button text = "show" GridPane.columnIndex = "1" GridPane.rowIndex = "8" onMouseClicked="#show"/> 
 <!-- display section for result set -->
 
 

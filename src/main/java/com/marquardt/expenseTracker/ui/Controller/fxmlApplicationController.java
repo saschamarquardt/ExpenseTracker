@@ -103,6 +103,15 @@ public class fxmlApplicationController extends Application {
 		
 	}
 
+	@FXML private void show(){
+		System.out.println(this.expenseHolder.getExpenseByDate().size());
+		
+	}
+	
+	private void saveData() throws IOException{
+		this.expenseHolder.persistAllExpenses();
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -110,7 +119,7 @@ public class fxmlApplicationController extends Application {
 	@Override
 	public void stop() throws IOException{
 		System.out.println("persisting expenses...");
-		this.expenseHolder.persistAllExpenses();
+		saveData();
 		System.out.println("expenses persisted");
 	}
 	
