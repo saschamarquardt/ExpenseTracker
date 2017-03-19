@@ -4,14 +4,15 @@ import java.io.IOException;
 import com.marquardt.expenseTracker.expense.Expense;
 import com.marquardt.expenseTracker.expense.ExpenseHolder;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -25,7 +26,9 @@ public class fxmlApplicationController extends Application {
 	@FXML TextField expenseDate;
 	@FXML Text addingExpenseOutput;
 	@FXML ObservableList<Expense> observableExpenseList;
-	@FXML ListView<Expense> expenseView;
+	@FXML TableView<Expense> expenseTable;
+	TableColumn expenseInfoColumn;
+	TableColumn expenseDateColumn;
 	
 	@FXML private void addNewExpenseToList(){
 		addingExpenseOutput.setText(""); //clearing output for new execution
@@ -108,6 +111,8 @@ public class fxmlApplicationController extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		primaryStage.getScene().getStylesheets().add("/ExpenseTracker/src/main/resources/styles/listView.css");
 				
 		
 	}
@@ -126,12 +131,32 @@ public class fxmlApplicationController extends Application {
 	public void initialize(){
 		//load expenses from file
 		expenseHolder.loadExpensesFromFile();
-		//put the expenses from the list in to the observable list		
+		//put the expenses from the list in to the observable list
+		this.initializeTableView();
 		observableExpenseList = expenseHolder.getExpenseByDate();
-		expenseView.setItems(observableExpenseList);
+		for(Expense expenseElement : observableExpenseList){
+			//populateTable(expenseElement);
+		}
 		
 	}
 	
+	public void initializeTableView(){
+		this.expenseInfoColumn = new TableColumn<String, String>("Expense");
+		this.expenseDateColumn = new TableColumn<String, String>("Date");
+		this.expenseTable.getColumns().add(0, expenseInfoColumn);
+		this.expenseTable.getColumns().add(1, expenseDateColumn);
+		
+	}
+	
+	
+	public void populateTable(Expense expense){
+		
+		this.expenseInfoColumn.setCellValueFactory(
+			    new PropertyValueFactory<Expense,String>("titel")
+			);
+		this.expenseDateColumn.setCellValueFactory(new PropertyValueFactory<Expense, String>("expenseDate"));
+				
+	}
 	
 	
 }
