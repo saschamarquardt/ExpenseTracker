@@ -13,12 +13,16 @@ import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class ExpenseHolder {
 
-	private List<Expense> expenseList;
+	private ObservableList<Expense> expenseList;
+	String storageFilePath = "misc/storedExpences.csv";
 
 	public ExpenseHolder() {
-		this.expenseList = new ArrayList<>();
+		this.expenseList = FXCollections.observableArrayList();
 	}
 	
 	
@@ -34,8 +38,14 @@ public class ExpenseHolder {
 
 	}
 	
-	public boolean insertNewExpense(String titel, String value, String expenseDate, String description, String category){
-		return this.expenseList.add(new Expense(titel, value, expenseDate, description, category));
+	public Expense insertNewExpense(String titel, String value, String expenseDate, String description, String category){
+		Expense newExpense = new Expense(titel, value, expenseDate, description, category);
+		this.expenseList.add(newExpense);
+		return newExpense;
+	}
+	
+	public boolean insertNewExpense(Expense expense){
+		return this.expenseList.add(expense);
 	}
 
 	public BigDecimal calculateSum() {
@@ -55,7 +65,7 @@ public class ExpenseHolder {
 	 * 
 	 * @return A list of all stored expenses
 	 */
-	public List<Expense> getExpenseByDate() {
+	public ObservableList<Expense> getExpenseByDate() {
 
 		return expenseList;
 
@@ -109,11 +119,11 @@ public class ExpenseHolder {
 	 * @throws IOException 
 	 */
 	public void persistAllExpenses() throws IOException{
-		File storageFile = new File("misc/storedExpences.csv");
+		File storageFile = new File(storageFilePath);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(storageFile));
 		
 		//write out the whole list
-		for(Expense expense : expenseList){
+		for(Expense expense : this.expenseList){
 			System.out.println(expense.expenseToFile());
 			try {
 				writer.write(expense.expenseToFile());
@@ -128,16 +138,26 @@ public class ExpenseHolder {
 		
 	}
 	
+	public void appendToStorageFile(Expense expense) throws IOException{
+		
+		File storageFile = new File(storageFilePath);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(storageFile, true));
+		writer.write(expense.expenseToFile());
+		writer.newLine();
+		writer.close();
+		
+	}
+	
 	
 	/**
 	 * Load the stored expenses from the given input file
 	 * @param inputFile The path to the storage file
 	 */
-	public boolean loadExpensesFromFile(String inputFile){
+	public boolean loadExpensesFromFile(){
 		
-		File input = new File(inputFile);
+		File inputFile = new File(storageFilePath);
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(input));
+			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 			try {
 				while(reader.ready()){
 					String[] nextExpense = reader.readLine().split(",", -1);

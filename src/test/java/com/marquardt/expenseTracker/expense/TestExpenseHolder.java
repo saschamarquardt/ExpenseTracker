@@ -178,7 +178,7 @@ public class TestExpenseHolder {
 		
 		String inputFile = "misc/storedExpences.csv";
 		
-		this.expenseHolder.loadExpensesFromFile(inputFile);
+		this.expenseHolder.loadExpensesFromFile();
 		
 		for(Expense expense : this.expenseHolder.getExpenseByDate()){
 			System.out.println(expense.toString());

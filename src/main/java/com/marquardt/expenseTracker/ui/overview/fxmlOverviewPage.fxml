@@ -38,6 +38,8 @@
 
 <Button text = "show" GridPane.columnIndex = "1" GridPane.rowIndex = "8" onMouseClicked="#show"/> 
 <!-- display section for result set -->
+<Text text = "Stored Expenses" GridPane.rowIndex="9" GridPane.columnIndex="0" GridPane.columnSpan="2" />
+<ListView fx:id="expenseView" GridPane.columnIndex="0" GridPane.rowIndex="10" />
 
 
 </GridPane>

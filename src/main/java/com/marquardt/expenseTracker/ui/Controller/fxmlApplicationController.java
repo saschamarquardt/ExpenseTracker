@@ -1,23 +1,22 @@
 package com.marquardt.expenseTracker.ui.Controller;
 
 import java.io.IOException;
-
-import org.junit.internal.Throwables;
-
 import com.marquardt.expenseTracker.expense.Expense;
 import com.marquardt.expenseTracker.expense.ExpenseHolder;
-
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class fxmlApplicationController extends Application {
+	
 	
 	ExpenseHolder expenseHolder = new ExpenseHolder();
 	
@@ -25,6 +24,8 @@ public class fxmlApplicationController extends Application {
 	@FXML TextField expenseAmount;
 	@FXML TextField expenseDate;
 	@FXML Text addingExpenseOutput;
+	@FXML ObservableList<Expense> observableExpenseList;
+	@FXML ListView<Expense> expenseView;
 	
 	@FXML private void addNewExpenseToList(){
 		addingExpenseOutput.setText(""); //clearing output for new execution
@@ -36,8 +37,19 @@ public class fxmlApplicationController extends Application {
 		String desc = validateExpenseDescription();
 		String category = validateExpenseCategory();
 		
-		expenseHolder.insertNewExpense(name, value, date, desc, category);
-		addingExpenseOutput.setText("Expense added"); //give output result
+		Expense newExpense = expenseHolder.insertNewExpense(name, value, date, desc, category);
+		if(newExpense != null){
+			addingExpenseOutput.setText("Expense added"); //give output result
+		}else{
+			System.out.println("Failed to add Expense, sorry...");
+		}
+		
+		//store the expense into a file directly
+		try {
+			expenseHolder.appendToStorageFile(newExpense);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		//clears the text fields after use
 		expenseName.clear();
@@ -52,13 +64,11 @@ public class fxmlApplicationController extends Application {
 	
 
 	private String validateExpenseCategory() {
-		// TODO Auto-generated method stub
 		return "";
 	}
 
 
 	private String validateExpenseDescription() {
-		// TODO Auto-generated method stub
 		return "";
 	}
 
@@ -93,35 +103,35 @@ public class fxmlApplicationController extends Application {
 			primaryStage.setTitle("Expense Tracker");
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+				
 		
 	}
 
-	@FXML private void show(){
+	@FXML
+	private void show(){
 		System.out.println(this.expenseHolder.getExpenseByDate().size());
 		
 	}
 	
-	private void saveData() throws IOException{
-		this.expenseHolder.persistAllExpenses();
-	}
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
-	@Override
-	public void stop() throws IOException{
-		System.out.println("persisting expenses...");
-		saveData();
-		System.out.println("expenses persisted");
+	public void initialize(){
+		//load expenses from file
+		expenseHolder.loadExpensesFromFile();
+		//put the expenses from the list in to the observable list		
+		observableExpenseList = expenseHolder.getExpenseByDate();
+		expenseView.setItems(observableExpenseList);
+		
 	}
+	
 	
 	
 }
